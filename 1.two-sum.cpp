@@ -12,27 +12,28 @@ class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         vector<pair<int,int>> arr;
-        vector<vector<int,int>> result;
-        for(int i=0;i<nums.size();i++){
-            arr.push_back({nums[i],i});
+        arr.reserve(nums.size());
+        for (int i = 0; i < nums.size(); ++i) {
+            arr.push_back({nums[i], i});
         }
-        //sort
+
         sort(arr.begin(), arr.end());
-for(int i=0;i<nums.size()-3;i++){
-        int right=nums.size()-1,left=0;
-    while(right>left){
-        long long sum=(long long)arr[i].first+arr[right].first+arr[left].first;
-        if(sum<target){
-            left++;
+
+        int left = 0;
+        int right = static_cast<int>(arr.size()) - 1;
+        while (left < right) {
+            long long sum = static_cast<long long>(arr[left].first) + arr[right].first;
+            if (sum == target) {
+                return {arr[left].second, arr[right].second};
+            }
+            if (sum < target) {
+                ++left;
+            } else {
+                --right;
+            }
         }
-       else if(sum>target){
-            right--;
-        }
-        else{
-            return {arr[left].second,arr[right].second};
-        }
-    }}
-    return {};
+
+        return {};
     }
 };
 // @lc code=end
